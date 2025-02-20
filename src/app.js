@@ -6,7 +6,17 @@ const User = require("./modules/user");
 app.use(express.json()) //middleWare
 
 app.post("/singUp", async (req, res) => {
+<<<<<<< HEAD
   const user = new User(req.body);
+=======
+  //creating a new intense of the user model
+  const user = new User({
+    firstName: "chandru",
+    lastName: "mariyapan",
+    email: "chandru@gmail.com",
+    password: "chandru@123",
+  });
+>>>>>>> 2ba49b5ee62b2d4952db23fc5a977a50c4b5aa3c
   await user.save();
   res.send("user added successfully");
 });
