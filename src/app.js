@@ -5,6 +5,7 @@ const app = express();
 const User = require("./modules/user");
 
 app.post("/singUp", async (req, res) => {
+  //creating a new intense of the user model
   const user = new User({
     firstName: "chandru",
     lastName: "mariyapan",
