@@ -1,29 +1,27 @@
 const express = require("express");
 
+const connectDB = require("./config/database");
 const app = express();
+const User = require("./modules/user");
 
-// req (request) should be the first parameter.
-// res (response) should be the second parameter.
-// The app.use() method is handling all requests with a response.
-
-// app.get() ensures that only GET requests for exact paths (/, /test, /home) are handled.
-// app.use() is better suited for middleware (e.g., logging, authentication, static files).
-
-app.use("/", (req, res) => {
-  res.send("hello server from the vs Code");
+app.post("/singUp", async (req, res) => {
+  const user = new User({
+    firstName: "chandru",
+    lastName: "mariyapan",
+    email: "chandru@gmail.com",
+    password: "chandru@123",
+  });
+  await user.save();
+  res.send("user added successfully");
 });
 
-app.use("/test", (req, res) => {
-    res.send("hello test");
-})
-app.use("/home", (req, res) => {
-    res.send("hello home");
-})
-
-
-// The app.listen(3000, ...) method starts the server and listens for incoming connections on port 3000.
-
-
-app.listen(3000, () => {
-  console.log("start the server at specified port number 3000...");
-});
+connectDB()
+  .then(() => {
+    console.log("connected database Successfully");
+    app.listen(3000, () => {
+      console.log("server is successfully listening on port number 3000...");
+    });
+  })
+  .catch((error) => {
+    console.error("database cannot be connected");
+  });
