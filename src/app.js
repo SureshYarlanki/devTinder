@@ -3,14 +3,10 @@ const express = require("express");
 const connectDB = require("./config/database");
 const app = express();
 const User = require("./modules/user");
+app.use(express.json()) //middleWare
 
 app.post("/singUp", async (req, res) => {
-  const user = new User({
-    firstName: "chandru",
-    lastName: "mariyapan",
-    email: "chandru@gmail.com",
-    password: "chandru@123",
-  });
+  const user = new User(req.body);
   await user.save();
   res.send("user added successfully");
 });
